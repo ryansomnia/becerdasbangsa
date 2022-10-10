@@ -29,12 +29,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-// app.all("*",(req,res,next)=>{
-//     next(new appError(`The Url ${req.originalUrl} does not exist`,404));
-// });
-
-// app.use(errorHandle);
-
 // buat server nya
 app.listen(PORT, () => console.log(`Server running at port: ${PORT}`));
 
