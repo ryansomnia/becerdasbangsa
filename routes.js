@@ -1,25 +1,14 @@
 const express = require('express');
-const artikel = require('./controller/artikel')
-const ppdb = require('./controller/ppdb')
-const router = express.Router();
+const router = express.Router()
+const register = require('./controller/register')
+const user = require('./controller/user')
 
+// AS USER
+router.get('/register/getAll',register.getData)
+router.post('/register/registerData',register.registerData)
 
-// login
-// register
-
-
-// artikel
-router.get('/api/cerdasbangsa/getAllData', artikel.getAllData)
-router.post('/api/cerdasbangsa/insertCarousel', artikel.insertCarousel)
-
-// get data news
-// get data artikel
-// get data event
-// regisppdb
-router.get('/api/cerdasbangsa/getAllData', ppdb.getAllData)
-router.post('/api/cerdasbangsa/registerData', ppdb.registerData)
-router.post('/api/cerdasbangsa/editData', ppdb.editData)
-router.post('/api/cerdasbangsa/deleteData', ppdb.deleteData)
-
+// AS ADMIN
+router.post('/user/login',user.login)
+router.post('/user/addUser',user.addUser)
 
 module.exports = router;
