@@ -3,7 +3,9 @@ const router = express.Router()
 const register = require('./controller/register')
 const user = require('./controller/user')
 const artikel = require('./controller/artikel')
+const cors = require('cors')
 
+router.use(cors());
 
 const multer = require('multer');
 

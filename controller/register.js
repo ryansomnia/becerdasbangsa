@@ -55,7 +55,11 @@ let register = {
         i_alamatRumah,
         i_noHandphone
         } = req.body;
-console.log(req.body);
+
+        // validasi angka 
+        // validasi empty
+
+        
       let qry = `INSERT INTO register (namaLengkap, jenisKelamin, tanggalLahir, tempatLahir, agama, 
         gereja, kewarganegaraan, jumlahSaudara, anakKe, golonganDarah, alamat, noHandphone,
          bertempatTinggal, jarakKeSekolah, NIK, asalSekolah, tanggalDanNoSTTBTK, a_namaAyah,

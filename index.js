@@ -8,7 +8,6 @@ const FileUpload = require('express-fileupload')
 const PORT = process.env.PORT || 5000;
 
 const app = express()
-
 // set body parser
 app.options('*', cors());
 app.use(express.static('public'));
