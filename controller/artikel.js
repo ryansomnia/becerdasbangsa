@@ -3,6 +3,19 @@ const fs = require("fs");
 const koneksi = require("../config/database");
 
 let artikel = {
+  getAll: async (req, res) =>{
+try {
+  let qry = `SELECT * FROM artikel`;
+  koneksi.query(qry, (err, results, fields) => {
+    if (err) throw err;
+    res.send(results);
+    console.log(results);
+  });
+} catch (err) {
+  res.send(err);
+      console.log(err);
+}
+  },
   addArtikel: async (req, res) => {
     try {
         let judul = req.body.judul;

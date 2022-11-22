@@ -29,7 +29,7 @@ router.post('/user/login',user.login)
 router.post('/user/addUser',user.addUser)
 
 // Artikel Service
-
+router.get('/artikel/getAll',artikel.getAll)
 router.post('/artikel/addArtikel',artikel.addArtikel)
 
 module.exports = router;
