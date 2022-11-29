@@ -47,9 +47,9 @@ let user = {
   },
   addUser: async (req, res) =>{
     try {
-        let {username, password, nama, status, role} = req.body
+        let {username, password, nama, role} = req.body
         let qry = `INSERT INTO user (username, password, nama, status, role) 
-    VALUES ('${username}', '${password}', '${nama}', '${status}', '${role}')`
+    VALUES ('${username}', '${password}', '${nama}', 1, '${role}')`
 
     koneksi.query(qry, (err, results, fields) => {
         if (err) throw err;
@@ -62,6 +62,33 @@ let user = {
         console.log(e);
     }
     
+  },
+  getData: async (req, res) =>{
+    try {
+      let qry = `SELECT * FROM user`;
+      koneksi.query(qry, (err, results, fields) => {
+        if (err) throw err;
+        let result = {
+          code : 200,
+          status : "success",
+          data : results
+  
+      }
+      res.status(result.code).send(result);
+      console.log(result);
+      });
+
+    } catch (err) {
+      let error = {
+        code : 500,
+        status : "error",
+        data : err
+
+    }
+    res.status(error.code).send(error);
+    console.log(error);
+    }
+   
   }
 };
 

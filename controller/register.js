@@ -84,6 +84,32 @@ let register = {
       console.log(e);
     }
   },
+  deleteData:async (req, res) =>{
+    try {
+      let idregister = req.body.idregister
+      let qry = `DELETE FROM register WHERE idregister = '${idregister}'`;
+      koneksi.query(qry, (err, results, fields) => {
+        if (err) throw err;
+        let result = {
+          code : 200,
+          status : "success",
+          data : "data berhasil dihapus"
+
+      }
+      res.status(result.code).send(result);
+      console.log(result);
+      });
+    } catch (err) {
+      let error = {
+        code : 500,
+        status : "error",
+        error : err
+
+    }
+    res.status(error.code).send(error);
+    console.log(error);
+    }
+  }
 };
 
 module.exports = register;

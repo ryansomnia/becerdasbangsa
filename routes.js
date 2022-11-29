@@ -23,13 +23,17 @@ const upload = multer({ storage : storage })
 // AS USER
 router.get('/register/getAll',register.getData)
 router.post('/register/registerData',register.registerData)
+router.post('/register/deleteData',register.deleteData)
+
 
 // AS ADMIN
+router.get('/user/getAll',user.getData)
 router.post('/user/login',user.login)
 router.post('/user/addUser',user.addUser)
 
+
 // Artikel Service
 router.get('/artikel/getAll',artikel.getAll)
-router.post('/artikel/addArtikel',artikel.addArtikel)
+router.post('/artikel/addArtikel',artikel.postData)
 
 module.exports = router;
