@@ -8,7 +8,7 @@ let user = {
       WHERE username='${username}' 
       AND password='${password}' 
       AND status= '1' 
-      AND role = 'admin'`
+      AND role = 'admin' OR role = 'manager'`
       koneksi.query(qry, (err, results, fields) => {
         if (err) throw err;
        if (results.length > 0) {
@@ -89,6 +89,24 @@ let user = {
     console.log(error);
     }
    
+  },
+  deleteData: async(req, res)=>{
+    try {
+      let id = req.body.id
+      console.log('id',id);
+      let qry = `DELETE FROM user WHERE iduser = '${id}'`
+
+  koneksi.query(qry, (err, results, fields) => {
+      if (err) throw err;
+      console.log('delete');
+      res.send(results);
+      console.log(results);
+    });
+
+  } catch (e) {
+      res.send(e);
+      console.log(e);
+  }
   }
 };
 

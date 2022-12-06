@@ -87,6 +87,7 @@ let register = {
   deleteData:async (req, res) =>{
     try {
       let idregister = req.body.idregister
+      console.log('idregister',idregister);
       let qry = `DELETE FROM register WHERE idregister = '${idregister}'`;
       koneksi.query(qry, (err, results, fields) => {
         if (err) throw err;

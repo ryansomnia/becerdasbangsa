@@ -17,6 +17,31 @@ try {
       console.log(err);
 }
   },
+  getCarousel: async (req, res) =>{
+    try {
+      let qry = `SELECT * FROM artikel WHERE kategori = 'carousel' `;
+      koneksi.query(qry, (err, results, fields) => {
+        if (err) throw err;
+        res.send(results);
+        // console.log(results);
+      });
+    } catch (err) {
+      res.send(err);
+          console.log(err);
+    }
+  },
+  getNews: async (req, res) =>{
+    try {
+      let qry = `SELECT * FROM artikel WHERE kategori = 'news' `;
+      koneksi.query(qry, (err, results, fields) => {
+        if (err) throw err;
+        res.send(results);
+      });
+    } catch (err) {
+      res.send(err);
+          console.log(err);
+    }
+  },
   addArtikel: async (req, res) => {
     try {
         let judul = req.body.judul;
@@ -172,6 +197,53 @@ try {
       }
 
     })
-  }
+  },
+  deleteArtikel : async (req, res) =>{
+      try {
+        let id = req.body.id
+        let qry = `SELECT * FROM artikel WHERE idartikel = '${id}'`;
+        koneksi.query(qry, (err, results, fields) => {
+          if (err) throw err;
+          let result = {
+            code : 200,
+            status : "success",
+            data : results
+          }
+          console.log('x',result.data[0].url );
+          if (result.data.length >0) {
+          
+             
+          // fs.unlink(result.data[0].url);
+       
+          
+            let qry = `DELETE FROM artikel WHERE idartikel = '${id}'`;
+            koneksi.query(qry, (err, results, fields) => {
+              if (err) throw err;
+              let result = {
+                code : 200,
+                status : "success",
+                data : "data berhasil dihapus"
+              }
+             
+              res.status(result.code).send(result);
+              console.log(result);
+            }
+            )}
+            }
+     
+        )}
+      
+      catch (err) {
+        let error = {
+          code : 500,
+          status : "error",
+          error : err
+  
+      }
+      res.status(error.code).send(error);
+      console.log(error);
+      }
+    }
+  
 };
 module.exports = artikel;

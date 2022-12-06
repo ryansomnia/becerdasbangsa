@@ -30,10 +30,14 @@ router.post('/register/deleteData',register.deleteData)
 router.get('/user/getAll',user.getData)
 router.post('/user/login',user.login)
 router.post('/user/addUser',user.addUser)
+router.post('/user/deleteUser',user.deleteData)
 
 
 // Artikel Service
 router.get('/artikel/getAll',artikel.getAll)
+router.get('/artikel/getCarousel',artikel.getCarousel)
+router.get('/artikel/getNews',artikel.getNews)
 router.post('/artikel/addArtikel',artikel.postData)
+router.post('/artikel/deleteArtikel',artikel.deleteArtikel)
 
 module.exports = router;
