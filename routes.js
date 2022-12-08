@@ -37,6 +37,7 @@ router.post('/user/deleteUser',user.deleteData)
 router.get('/artikel/getAll',artikel.getAll)
 router.get('/artikel/getCarousel',artikel.getCarousel)
 router.get('/artikel/getNews',artikel.getNews)
+router.post('/artikel/getOneNews',artikel.getOneNews)
 router.post('/artikel/addArtikel',artikel.postData)
 router.post('/artikel/deleteArtikel',artikel.deleteArtikel)
 

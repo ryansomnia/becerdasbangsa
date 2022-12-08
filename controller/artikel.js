@@ -42,6 +42,20 @@ try {
           console.log(err);
     }
   },
+  getOneNews: async (req, res) =>{
+    let id = req.body.id
+    try {
+      let qry = `SELECT * FROM artikel WHERE kategori = 'news' AND idartikel = '${id}' `;
+      koneksi.query(qry, (err, results, fields) => {
+        if (err) throw err;
+        res.send(results);
+      });
+    } catch (err) {
+      res.send(err);
+          console.log(err);
+    }
+  },
+  
   addArtikel: async (req, res) => {
     try {
         let judul = req.body.judul;
