@@ -28,9 +28,12 @@ router.post('/register/deleteData',register.deleteData)
 
 // AS ADMIN
 router.get('/user/getAll',user.getData)
+router.post('/user/getOneData',user.getOneData)
 router.post('/user/login',user.login)
 router.post('/user/addUser',user.addUser)
 router.post('/user/deleteUser',user.deleteData)
+router.post('/user/updateUser',user.updateData)
+
 
 
 // Artikel Service

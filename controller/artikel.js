@@ -228,7 +228,14 @@ try {
           
              
           // fs.unlink(result.data[0].url);
-       
+    
+
+          let filename = result.data[0].url;
+          let tempFile = fs.openSync(filename, 'r');
+          // try commenting out the following line to see the different behavior
+          fs.closeSync(tempFile);
+          
+          fs.unlinkSync(filename);
           
             let qry = `DELETE FROM artikel WHERE idartikel = '${id}'`;
             koneksi.query(qry, (err, results, fields) => {
