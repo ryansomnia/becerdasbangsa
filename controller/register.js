@@ -32,10 +32,10 @@ let register = {
 
         
       let qry = `INSERT INTO register (namaLengkap, jenisKelamin, tanggalLahir, tempatLahir, 
-        agama, alamat, noHandphone, asalSekolah) 
+        agama, alamat, noHandphone, asalSekolah, statusRegistrasi) 
 
       VALUES ('${namaLengkap}', '${jenisKelamin}', '${tanggalLahir}', '${tempatLahir}',
-       '${agama}', '${alamat}', '${noHandphone}', '${asalSekolah}');`;
+       '${agama}', '${alamat}', '${noHandphone}', '${asalSekolah}', 'registrasi');`;
 
       koneksi.query(qry, (err, results, fields) => {
         if (err) throw err;
