@@ -158,10 +158,9 @@ try {
     let isi = req.body.isi;
     let kategori = req.body.kategori;
     let dateNow = moment().format("YYYY-MM-DD")
-    console.log('req',req);
-    console.log('rf',req.files);
+  
     let file = req.files.file;
-    let fileSize = file.data.length;
+    // let fileSize = file.data.length;
     let ext = path.extname(file.name);
     let filename = file.md5 + ext;
     let url = `${req.protocol}://${req.get("host")}/images/${filename}`;
