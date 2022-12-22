@@ -222,20 +222,11 @@ try {
             status : "success",
             data : results
           }
-          console.log('x',result.data[0].url );
+          console.log('x',result);
           if (result.data.length >0) {
-          
-             
-          // fs.unlink(result.data[0].url);
-    
-
-          // let filename = result.data[0].url;
-          // let tempFile = fs.openSync(filename, 'r');
-          // try commenting out the following line to see the different behavior
-          // fs.closeSync(tempFile);
-          
-          // fs.unlinkSync(filename);
-          
+          let filename = `./public/images/${result.data[0].img}`;
+            console.log(filename);
+             fs.unlinkSync(filename)
             let qry = `DELETE FROM artikel WHERE idartikel = '${id}'`;
             koneksi.query(qry, (err, results, fields) => {
               if (err) throw err;
@@ -248,7 +239,8 @@ try {
               res.status(result.code).send(result);
               console.log(result);
             }
-            )}
+            )
+          }
             }
      
         )}

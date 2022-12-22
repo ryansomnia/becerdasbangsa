@@ -27,6 +27,10 @@ let register = {
         asalSekolah
         } = req.body;
 
+        if (condition) {
+          
+        }
+
         // validasi angka 
         // validasi empty
 

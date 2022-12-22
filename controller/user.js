@@ -3,7 +3,29 @@ const koneksi = require("../config/database");
 let user = {
   login: async (req, res) => {
     try {
+
       let { username, password } = req.body;
+
+        let regex = /^[A-Za-z0-9 ]+$/
+        var isValid = regex.test(username);
+        if (!isValid) {
+          let err = {
+            code: 400,
+            status: "error",
+            error: 'data mengandung karakter',
+          };
+          res.status(err.code).send(err);       
+         } 
+         if (username === "" || password === "") {
+          let err = {
+            code : 400,
+            status : 'error',
+            message : 'input data tidak terisi !'
+          }
+          res.status(err.code).send(err)
+        }
+        
+   
       let qry = `SELECT nama FROM user 
       WHERE username='${username}' 
       AND password='${password}' 
@@ -40,8 +62,54 @@ let user = {
     }
   },
   addUser: async (req, res) => {
+    let { username, password, nama, role } = req.body;
+
+    let regex = /^[A-Za-z0-9 ]+$/
+    var isValid = regex.test(username);
+
+    if (username === "") {
+      let err = {
+        code : 400,
+        status : 'error',
+        message : 'input data tidak terisi !'
+      }
+      res.status(err.code).send(err)
+
+    } else if(!isValid){
+      let err = {
+        code: 400,
+        status: "error",
+        error: 'input username mengandung karakter',
+      };
+      res.status(err.code).send(err);  
+    }
+
+    if (password === "") {
+      let err = {
+        code : 400,
+        status : 'error',
+        message : 'input data tidak terisi !'
+      }
+      res.status(err.code).send(err)
+    }
+    if (nama === "") {
+      let err = {
+        code : 400,
+        status : 'error',
+        message : 'input data tidak terisi !'
+      }
+      res.status(err.code).send(err)
+    }
+    if (role === "") {
+      let err = {
+        code : 400,
+        status : 'error',
+        message : 'input data tidak terisi !'
+      }
+      res.status(err.code).send(err)
+    }
     try {
-      let { username, password, nama, role } = req.body;
+    
       let qry = `INSERT INTO user (username, password, nama, status, role) 
     VALUES ('${username}', '${password}', '${nama}', 1, '${role}')`;
 
