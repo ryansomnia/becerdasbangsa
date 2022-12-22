@@ -27,8 +27,16 @@ let register = {
         asalSekolah
         } = req.body;
 
-        if (condition) {
-          
+        if (namaLengkap === "" || jenisKelamin === "" 
+        || tanggalLahir === "" || tempatLahir === "" || 
+        agama === "" || alamat ==="" || noHandphone === ""
+        || asalSekolah === "") {
+          let err = {
+            code : 400,
+            status : 'error',
+            message : 'input data tidak terisi !'
+          }
+          res.status(err.code).send(err)
         }
 
         // validasi angka 
