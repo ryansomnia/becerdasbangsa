@@ -40,8 +40,17 @@ let register = {
         }
 
         // validasi angka 
-        // validasi empty
-
+  
+          let isphone = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g.test(noHandphone);
+          if(!isphone) {
+              
+              let err = {
+                code : 400,
+                status : 'error',
+                message : 'input nomor handphone tidak sesuai !'
+              }
+              res.status(err.code).send(err)
+          }
         
       let qry = `INSERT INTO register (namaLengkap, jenisKelamin, tanggalLahir, tempatLahir, 
         agama, alamat, noHandphone, asalSekolah, statusRegistrasi) 
