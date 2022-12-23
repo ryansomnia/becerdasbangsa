@@ -42,10 +42,35 @@ try {
           console.log(err);
     }
   },
+  getArtikel: async (req, res) =>{
+    try {
+      let qry = `SELECT * FROM artikel WHERE kategori = 'artikel' `;
+      koneksi.query(qry, (err, results, fields) => {
+        if (err) throw err;
+        res.send(results);
+      });
+    } catch (err) {
+      res.send(err);
+          console.log(err);
+    }
+  },
   getOneNews: async (req, res) =>{
     let id = req.body.id
     try {
       let qry = `SELECT * FROM artikel WHERE kategori = 'news' AND idartikel = '${id}' `;
+      koneksi.query(qry, (err, results, fields) => {
+        if (err) throw err;
+        res.send(results);
+      });
+    } catch (err) {
+      res.send(err);
+          console.log(err);
+    }
+  },
+  getOneArtikel: async (req, res) =>{
+    let id = req.body.id
+    try {
+      let qry = `SELECT * FROM artikel WHERE kategori = 'artikel' AND idartikel = '${id}' `;
       koneksi.query(qry, (err, results, fields) => {
         if (err) throw err;
         res.send(results);

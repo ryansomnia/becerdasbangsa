@@ -182,11 +182,11 @@ let user = {
     }
   },
   updateData: async (req, res) => {
-    let { id, nama, password, username } = req.body;
+    let { id, nama, password, username, role } = req.body;
 
     try {
       let qry = `UPDATE user 
-                SET nama = '${nama}', password = '${password}', username = '${username}'
+                SET nama = '${nama}', password = '${password}', username = '${username}', role = '${role}'
                 WHERE iduser= '${id}'`;
       koneksi.query(qry, (err, results) => {
         if (err) throw err;
