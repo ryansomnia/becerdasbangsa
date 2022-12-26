@@ -18,6 +18,7 @@ let register = {
     try {
       let {
         namaLengkap,
+        jenisRegis,
         jenisKelamin,
         tanggalLahir,
         tempatLahir,
@@ -27,7 +28,7 @@ let register = {
         asalSekolah
         } = req.body;
 
-        if (namaLengkap === "" || jenisKelamin === "" 
+        if (namaLengkap === "" ||jenisRegis === "" || jenisKelamin === "" 
         || tanggalLahir === "" || tempatLahir === "" || 
         agama === "" || alamat ==="" || noHandphone === ""
         || asalSekolah === "") {
@@ -52,16 +53,20 @@ let register = {
               res.status(err.code).send(err)
           }
         
-      let qry = `INSERT INTO register (namaLengkap, jenisKelamin, tanggalLahir, tempatLahir, 
+      let qry = `INSERT INTO register (namaLengkap, jenisRegis, jenisKelamin, tanggalLahir, tempatLahir, 
         agama, alamat, noHandphone, asalSekolah, statusRegistrasi) 
 
-      VALUES ('${namaLengkap}', '${jenisKelamin}', '${tanggalLahir}', '${tempatLahir}',
+      VALUES ('${namaLengkap}', '${jenisRegis}', '${jenisKelamin}', '${tanggalLahir}', '${tempatLahir}',
        '${agama}', '${alamat}', '${noHandphone}', '${asalSekolah}', 'registrasi');`;
 
-      koneksi.query(qry, (err, results, fields) => {
+      koneksi.query(qry, (err, fields) => {
         if (err) throw err;
-        res.send(results);
-        console.log(results);
+        let respon = {
+          code : 201,
+          status : 'success',
+          message : 'data berhasil di registrasi'
+        }
+        res.send(respon);
       });
     } catch (e) {
       res.send(e);
