@@ -70,7 +70,7 @@ try {
   getOneArtikel: async (req, res) =>{
     let id = req.body.id
     try {
-      let qry = `SELECT * FROM artikel WHERE kategori = 'artikel' AND idartikel = '${id}' `;
+      let qry = `SELECT * FROM artikel WHERE idartikel = '${id}' `;
       koneksi.query(qry, (err, results, fields) => {
         if (err) throw err;
         res.send(results);
@@ -111,7 +111,9 @@ try {
   
     let file = req.files.file;
     // let fileSize = file.data.length;
+    console.log('gdgd',file);
     let ext = path.extname(file.name);
+    console.log('x',ext);
     let filename = file.md5 + ext;
     let url = `${req.protocol}://${req.get("host")}/images/${filename}`;
     let allowedType = ['.png', '.jpg', '.jpeg'];
