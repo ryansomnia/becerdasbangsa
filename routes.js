@@ -26,6 +26,7 @@ router.get('/register/getOneData',register.getOneData)
 router.post('/register/registerData',register.registerData)
 router.post('/register/deleteData',register.deleteData)
 router.post('/register/updateData',register.updateData)
+router.post('/register/searchByNama',register.searchByNama)
 
 
 
@@ -36,6 +37,9 @@ router.post('/user/login',user.login)
 router.post('/user/addUser',user.addUser)
 router.post('/user/deleteUser',user.deleteData)
 router.post('/user/updateUser',user.updateData)
+router.post('/user/searchByNama',user.searchByNama)
+
+
 
 
 
@@ -48,5 +52,7 @@ router.post('/artikel/getOneNews',artikel.getOneNews)
 router.post('/artikel/getOneArtikel',artikel.getOneArtikel)
 router.post('/artikel/addArtikel',artikel.postData)
 router.post('/artikel/deleteArtikel',artikel.deleteArtikel)
+router.post('/artikel/updateData',artikel.updateData)
+router.post('/artikel/searchByNama',artikel.searchByJudul)
 
 module.exports = router;

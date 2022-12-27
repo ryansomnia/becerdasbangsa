@@ -202,6 +202,18 @@ let user = {
       res.send(err);
     }
   },
+  searchByNama: async (req, res) =>{
+    let nama = req.body.nama
+    try {
+      let qry = `SELECT * FROM user WHERE nama LIKE '%${nama}%'`;
+      koneksi.query(qry, (err, results, fields) => {
+        if (err) throw err;
+        res.send(results);
+      });
+    } catch (e) {
+      res.send(e);
+    }
+  }
 };
 
 module.exports = user;

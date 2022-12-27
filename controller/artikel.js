@@ -111,9 +111,7 @@ try {
   
     let file = req.files.file;
     // let fileSize = file.data.length;
-    console.log('gdgd',file);
     let ext = path.extname(file.name);
-    console.log('x',ext);
     let filename = file.md5 + ext;
     let url = `${req.protocol}://${req.get("host")}/images/${filename}`;
     let allowedType = ['.png', '.jpg', '.jpeg'];
@@ -162,6 +160,62 @@ try {
 
     })
   },
+  updateData: async (req, res) => {
+    let {id, judul, isi, kategori } = req.body;
+   console.log('req', req.body);
+    try {
+      let qrySelect = `SELECT * FROM artikel WHERE idartikel = '${id}'`;
+
+      koneksi.query(qrySelect, (err, results, fields) => {
+        if (err) throw err;
+          let result = {
+            code : 200,
+            status : "success",
+            data : results
+          }
+          if (result.data.length > 0) {
+            let filename = `./public/images/${result.data[0].img}`;
+             console.log('filename',filename);
+               fs.unlinkSync(filename)
+               let file = req.files.file;
+               console.log('file', file);
+               let ext = path.extname(file.name);
+               let fileData = file.md5 + ext;
+               let url = `${req.protocol}://${req.get("host")}/images/${fileData}`;
+               let allowedType = ['.png', '.jpg', '.jpeg'];
+           
+               if (!allowedType.includes(ext.toLowerCase())) {
+                 let respon = {
+                   code : 422,
+                   status : 'error',
+                   message : 'harus tipe gambar'
+                 }
+                 return res.status(respon.code).send(respon)
+               }
+              let qry = `UPDATE artikel 
+                        SET judul = '${judul}', isi = '${isi}',
+                        kategori = '${kategori}', url = '${url}, img = '${fileData}''
+                         WHERE idartikel= '${id}'`;
+              
+              koneksi.query(qry, (err, results, fields) => {
+                if (err) throw err;
+                let result = {
+                  code : 200,
+                  status : "success",
+                  data : "data berhasil dihapus"
+                }
+               
+                res.status(result.code).send(result);
+                console.log(result);
+              }
+              )
+            }
+     
+      })
+    } catch (err) {
+      res.send(err);
+    }
+  },
   deleteArtikel : async (req, res) =>{
       try {
         let id = req.body.id
@@ -206,6 +260,18 @@ try {
       res.status(error.code).send(error);
       console.log(error);
       }
+    },
+    searchByJudul : async(req, res) =>{
+      let judul = req.body.judul
+    try {
+      let qry = `SELECT * FROM artikel WHERE judul LIKE '%${judul}%'`;
+      koneksi.query(qry, (err, results, fields) => {
+        if (err) throw err;
+        res.send(results);
+      });
+    } catch (e) {
+      res.send(e);
+    }
     }
   
 };

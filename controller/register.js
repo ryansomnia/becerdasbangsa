@@ -145,6 +145,18 @@ let register = {
       res.send(err);
     }
   },
+  searchByNama: async (req, res) =>{
+    let namaLengkap = req.body.namaLengkap
+    try {
+      let qry = `SELECT * FROM register WHERE namaLengkap LIKE '%${namaLengkap}%'`;
+      koneksi.query(qry, (err, results, fields) => {
+        if (err) throw err;
+        res.send(results);
+      });
+    } catch (e) {
+      res.send(e);
+    }
+  }
 };
 
 module.exports = register;
