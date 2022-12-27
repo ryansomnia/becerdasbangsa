@@ -14,6 +14,18 @@ let register = {
       console.log(e);
     }
   },
+  getOneData : async (req, res) => {
+    let idregister = req.body.idregister
+    try {
+      let qry = `SELECT * FROM register WHERE idregister = '${idregister}'`;
+      koneksi.query(qry, (err, results, fields) => {
+        if (err) throw err;
+        res.send(results);
+      });
+    } catch (e) {
+      res.send(e);
+    }
+  },
   registerData: async (req, res) => {
     try {
       let {
