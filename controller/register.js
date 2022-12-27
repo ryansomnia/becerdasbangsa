@@ -111,7 +111,40 @@ let register = {
     res.status(error.code).send(error);
     console.log(error);
     }
-  }
+  },
+  updateData: async (req, res) => {
+    let {
+      idregister,
+      namaLengkap,
+      jenisRegis,
+      jenisKelamin,
+      tanggalLahir,
+      tempatLahir,
+      agama,
+      alamat,
+      noHandphone,
+      asalSekolah
+      } = req.body;
+    try {
+      let qry = `UPDATE register 
+                SET namaLengkap = '${namaLengkap}', jenisRegis = '${jenisRegis}', jenisKelamin = '${jenisKelamin}',
+                 tanggalLahir = '${tanggalLahir}', tempatLahir = '${tempatLahir}', agama = '${agama}', 
+                 alamat = '${alamat}', noHandphone = '${noHandphone}', asalSekolah = '${asalSekolah}'
+                WHERE idregister = '${idregister}'`;
+      koneksi.query(qry, (err, results) => {
+        if (err) throw err;
+        console.log(results);
+        let respon = {
+          code : 200,
+          status : 'success',
+          message : 'data berhasil diubah'
+        }
+        res.send(respon);
+      });
+    } catch (err) {
+      res.send(err);
+    }
+  },
 };
 
 module.exports = register;
