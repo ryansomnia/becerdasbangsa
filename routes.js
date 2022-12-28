@@ -53,6 +53,6 @@ router.post('/artikel/getOneArtikel',artikel.getOneArtikel)
 router.post('/artikel/addArtikel',artikel.postData)
 router.post('/artikel/deleteArtikel',artikel.deleteArtikel)
 router.post('/artikel/updateData',artikel.updateData)
-router.post('/artikel/searchByNama',artikel.searchByJudul)
+router.post('/artikel/searchByJudul',artikel.searchByJudul)
 
 module.exports = router;
