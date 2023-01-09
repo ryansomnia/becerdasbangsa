@@ -30,7 +30,7 @@ let user = {
       WHERE username='${username}' 
       AND password='${password}' 
       AND status= '1' 
-      AND role = 'admin' OR role = 'manager'`;
+      AND role IN ('admin', 'manager');`
       koneksi.query(qry, (err, results, fields) => {
         if (err) throw err;
         if (results.length > 0) {
