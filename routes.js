@@ -22,7 +22,7 @@ const upload = multer({ storage : storage })
 
 // AS USER
 router.get('/register/getAll',register.getData)
-router.get('/register/getOneData',register.getOneData)
+router.post('/register/getOneData',register.getOneData)
 router.post('/register/registerData',register.registerData)
 router.post('/register/deleteData',register.deleteData)
 router.post('/register/updateData',register.updateData)
