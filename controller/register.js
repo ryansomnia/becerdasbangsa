@@ -1,4 +1,5 @@
 const koneksi = require("../config/database");
+const moment = require('moment')
 
 let register = {
   getData: async (req, res) => {
@@ -6,8 +7,28 @@ let register = {
       let qry = `SELECT * FROM register`;
       koneksi.query(qry, (err, results, fields) => {
         if (err) throw err;
-        res.send(results);
-        console.log(results);
+        let data =  results.map((i) =>{
+
+          let object = {
+            namaLengkap: i.namaLengkap,
+            jenisRegis: i.jenisRegis,
+            jenisKelamin: i.jenisKelamin,
+            tanggalLahir: moment(i.tanggalLahir).format('YYYY-MM-DD'),
+            tempatLahir: i.tempatLahir,
+            agama: i.agama,
+            alamat: i.alamat,
+            noHandphone: i.noHandphone,
+            asalSekolah: i.asalSekolah,
+            statusRegistrasi: i.statusRegistrasi
+          }
+          return object;
+      
+         })
+  
+          res.send(data);
+
+        // res.send(results);
+        // console.log(results);
       });
     } catch (e) {
       res.send(e);
@@ -20,7 +41,27 @@ let register = {
       let qry = `SELECT * FROM register WHERE idregister = '${idregister}'`;
       koneksi.query(qry, (err, results, fields) => {
         if (err) throw err;
-        res.send(results);
+        console.log(results);
+
+       let data =  results.map((i) =>{
+
+        let object = {
+          namaLengkap: i.namaLengkap,
+          jenisRegis: i.jenisRegis,
+          jenisKelamin: i.jenisKelamin,
+          tanggalLahir: moment(i.tanggalLahir).format('YYYY-MM-DD'),
+          tempatLahir: i.tempatLahir,
+          agama: i.agama,
+          alamat: i.alamat,
+          noHandphone: i.noHandphone,
+          asalSekolah: i.asalSekolah,
+          statusRegistrasi: i.statusRegistrasi
+        }
+        return object;
+    
+       })
+
+        res.send(data);
       });
     } catch (e) {
       res.send(e);
