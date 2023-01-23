@@ -10,6 +10,7 @@ let register = {
         let data =  results.map((i) =>{
 
           let object = {
+            idregister: i.idregister,
             namaLengkap: i.namaLengkap,
             jenisRegis: i.jenisRegis,
             jenisKelamin: i.jenisKelamin,
@@ -46,6 +47,7 @@ let register = {
        let data =  results.map((i) =>{
 
         let object = {
+          idregister: i.idregister,
           namaLengkap: i.namaLengkap,
           jenisRegis: i.jenisRegis,
           jenisKelamin: i.jenisKelamin,
