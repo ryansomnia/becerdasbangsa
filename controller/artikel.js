@@ -242,7 +242,7 @@ try {
               let result = {
                 code : 200,
                 status : "success",
-                data : "data berhasil dihapus"
+                message : "data berhasil dihapus"
               }
              
               res.status(result.code).send(result);
