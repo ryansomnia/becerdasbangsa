@@ -86,8 +86,8 @@ try {
     if (req.files === null ) {
       let respon = {
         code : 400,
-        message: 'error',
-        detail:'image kosong !'
+        status: 'error',
+        message:'image kosong !'
       }
      return res.status(respon.code).send(respon)
 
@@ -137,16 +137,16 @@ try {
           if ( fields.affectedRows > 0) {
            let response = {
              code: 200,
-             message: 'success',
-             detail:'data berhasil ditambahkan'
+             status: 'success',
+             message:'data berhasil ditambahkan'
            };
            res.status(200).send(response);
 
           } else {
            let error = {
              code: 400,
-             message: 'error',
-             detail:'data tidak berhasil ditambahkan'
+             status: 'error',
+             message:'data tidak berhasil ditambahkan'
            };
            res.status(400).send(error);
            console.log(error);
@@ -155,7 +155,11 @@ try {
 
         })
       } catch (error) {
-        console.log(error);
+        let err = {
+          code: 400,
+          status: 'error',
+          message:'data tidak berhasil ditambahkan'
+        };
       }
 
     })
