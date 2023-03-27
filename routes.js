@@ -21,6 +21,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage : storage })
 
 // AS USER
+
 router.get('/register/getAll',register.getData)
 router.post('/register/getOneData',register.getOneData)
 router.post('/register/registerData',register.registerData)

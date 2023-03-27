@@ -113,7 +113,7 @@ try {
     // let fileSize = file.data.length;
     let ext = path.extname(file.name);
     let filename = file.md5 + ext;
-    let url = `${req.protocol}://${req.get("host")}/images/${filename}`;
+    let url = `https://sekolahcerdasbangsa.sch.id/api/images/${filename}`;
     let allowedType = ['.png', '.jpg', '.jpeg'];
 
     if (!allowedType.includes(ext.toLowerCase())) {
