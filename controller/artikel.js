@@ -19,7 +19,7 @@ try {
   },
   getCarousel: async (req, res) =>{
     try {
-      let qry = `SELECT * FROM artikel WHERE kategori = 'carousel' `;
+      let qry = `SELECT * FROM artikel WHERE kategori = 'carousel' ORDER BY tglCreate DESC `;
       koneksi.query(qry, (err, results, fields) => {
         if (err) throw err;
         res.send(results);
@@ -32,7 +32,7 @@ try {
   },
   getNews: async (req, res) =>{
     try {
-      let qry = `SELECT * FROM artikel WHERE kategori = 'news' `;
+      let qry = `SELECT * FROM artikel WHERE kategori = 'news' ORDER BY tglCreate DESC`;
       koneksi.query(qry, (err, results, fields) => {
         if (err) throw err;
         res.send(results);
@@ -44,7 +44,7 @@ try {
   },
   getArtikel: async (req, res) =>{
     try {
-      let qry = `SELECT * FROM artikel WHERE kategori = 'artikel' `;
+      let qry = `SELECT * FROM artikel WHERE kategori = 'artikel' ORDER BY tglCreate DESC `;
       koneksi.query(qry, (err, results, fields) => {
         if (err) throw err;
         res.send(results);

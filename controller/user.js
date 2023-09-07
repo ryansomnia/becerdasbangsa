@@ -64,50 +64,6 @@ let user = {
   addUser: async (req, res) => {
     let { username, password, nama, role } = req.body;
 
-    let regex = /^[A-Za-z0-9 ]+$/
-    var isValid = regex.test(username);
-
-    if (username === "") {
-      let err = {
-        code : 400,
-        status : 'error',
-        message : 'input data tidak terisi !'
-      }
-      res.status(err.code).send(err)
-
-    } else if(!isValid){
-      let err = {
-        code: 400,
-        status: "error",
-        error: 'input username mengandung karakter',
-      };
-      res.status(err.code).send(err);  
-    }
-
-    if (password === "") {
-      let err = {
-        code : 400,
-        status : 'error',
-        message : 'input data tidak terisi !'
-      }
-      res.status(err.code).send(err)
-    }
-    if (nama === "") {
-      let err = {
-        code : 400,
-        status : 'error',
-        message : 'input data tidak terisi !'
-      }
-      res.status(err.code).send(err)
-    }
-    if (role === "") {
-      let err = {
-        code : 400,
-        status : 'error',
-        message : 'input data tidak terisi !'
-      }
-      res.status(err.code).send(err)
-    }
     try {
     
       let qry = `INSERT INTO user (username, password, nama, status, role) 
