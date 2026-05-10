@@ -2,10 +2,10 @@ const mysql = require('mysql');
 require('dotenv').config();
 // buat konfigurasi koneksi
 const koneksi = mysql.createConnection({
-    host: process.env.local_HOST,
-    user: process.env.local_USERNAME,
-    password: process.env.local_PASSWORD,
-    database: process.env.local_DATABASE
+    host: process.env.vpn_HOST,
+    user: process.env.vpn_USERNAME,
+    password: process.env.vpn_PASSWORD,
+    database: process.env.vpn_DATABASE
 });
 // koneksi database
 koneksi.connect((err) => {
