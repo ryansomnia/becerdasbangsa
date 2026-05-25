@@ -82,87 +82,135 @@ try {
   },
   
   
-  postData : async (req, res) =>{
-    if (req.files === null ) {
-      let respon = {
-        code : 400,
-        status: 'error',
-        message:'image kosong !'
-      }
-     return res.status(respon.code).send(respon)
+  postData: async (req, res) => {
 
-    } 
-
-    let judul = req.body.judul;
-    let isi = req.body.isi;
-    let kategori = req.body.kategori;
-
-    if (judul === "" || isi === "" || kategori === "") {
-      let respon = {
-        code : 400,
-        status : 'error',
-        message : 'input data tidak terisi !'
-      }
-     return res.status(respon.code).send(respon)
-    }
-
-
-    let dateNow = moment().format("YYYY-MM-DD")
+    try {
   
-    let file = req.files.file;
-    // let fileSize = file.data.length;
-    let ext = path.extname(file.name);
-    let filename = file.md5 + ext;
-    let url = `https://sekolahcerdasbangsa.sch.id/api/images/${filename}`;
-    let allowedType = ['.png', '.jpg', '.jpeg'];
-
-    if (!allowedType.includes(ext.toLowerCase())) {
-      return res.status(422).json({msg: "invalid Image"})
-    }
-
-    // if (fileSize > 5000000) {
-    //   return res.status(422).json({msg: " Size overload"})
-    // }
-
-    file.mv(`./public/images/${filename}`,async(err)=>{
-      if (err) {
-        return res.status(500).json({msg: err.message});
-      }
-      try {
-        let qry = `INSERT INTO artikel (judul, isi, tglCreate, img, url, status, kategori) 
-        VALUES ('${judul}', '${isi}', '${dateNow}', '${filename}','${url}', '1', '${kategori}')`;
-        await koneksi.query(qry, (results, fields) =>{
-       
-          if (err) throw err;
-          if ( fields.affectedRows > 0) {
-           let response = {
-             code: 200,
-             status: 'success',
-             message:'data berhasil ditambahkan'
-           };
-           res.status(200).send(response);
-
-          } else {
-           let error = {
-             code: 400,
-             status: 'error',
-             message:'data tidak berhasil ditambahkan'
-           };
-           res.status(400).send(error);
-           console.log(error);
-          }
-          
-
-        })
-      } catch (error) {
-        let err = {
+      if (!req.files || req.files === null) {
+  
+        return res.status(400).json({
           code: 400,
           status: 'error',
-          message:'data tidak berhasil ditambahkan'
-        };
+          message: 'image kosong !'
+        });
+  
       }
-
-    })
+  
+      let judul = req.body.judul;
+      let isi = req.body.isi;
+      let kategori = req.body.kategori;
+  
+      if (!judul || !isi || !kategori) {
+  
+        return res.status(400).json({
+          code: 400,
+          status: 'error',
+          message: 'input data tidak terisi !'
+        });
+  
+      }
+  
+      let dateNow = moment().format("YYYY-MM-DD");
+  
+      let file = req.files.file;
+  
+      let ext = path.extname(file.name);
+  
+      let filename = file.md5 + ext;
+  
+      // FIX URL
+      let url = `https://api.sekolahcerdasbangsa.sch.id/images/${filename}`;
+  
+      let allowedType = ['.png', '.jpg', '.jpeg'];
+  
+      if (!allowedType.includes(ext.toLowerCase())) {
+  
+        return res.status(422).json({
+          message: "invalid image"
+        });
+  
+      }
+  
+      // upload image
+      file.mv(`./public/images/${filename}`, async (err) => {
+  
+        if (err) {
+  
+          console.log(err);
+  
+          return res.status(500).json({
+            message: err.message
+          });
+  
+        }
+  
+        // query insert
+        let qry = `
+          INSERT INTO artikel 
+          (judul, isi, tglCreate, img, url, status, kategori) 
+          VALUES (?, ?, ?, ?, ?, ?, ?)
+        `;
+  
+        koneksi.query(
+          qry,
+          [
+            judul,
+            isi,
+            dateNow,
+            filename,
+            url,
+            1,
+            kategori
+          ],
+          (error, results, fields) => {
+  
+            if (error) {
+  
+              console.log(error);
+  
+              return res.status(500).json({
+                code: 500,
+                status: 'error',
+                message: 'database error'
+              });
+  
+            }
+  
+            if (results.affectedRows > 0) {
+  
+              return res.status(200).json({
+                code: 200,
+                status: 'success',
+                message: 'data berhasil ditambahkan'
+              });
+  
+            } else {
+  
+              return res.status(400).json({
+                code: 400,
+                status: 'error',
+                message: 'data gagal ditambahkan'
+              });
+  
+            }
+  
+          }
+        );
+  
+      });
+  
+    } catch (error) {
+  
+      console.log(error);
+  
+      return res.status(500).json({
+        code: 500,
+        status: 'error',
+        message: 'server error'
+      });
+  
+    }
+  
   },
   updateData: async (req, res) => {
     let {id, judul, isi, kategori } = req.body;
