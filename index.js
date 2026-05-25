@@ -27,7 +27,12 @@ app.use(express.static('public'));
 
 
 // FILE UPLOAD
-app.use(FileUpload());
+app.use(FileUpload({
+  limits: {
+    fileSize: 20 * 1024 * 1024
+  },
+  abortOnLimit: true
+}));
 
 
 // BODY PARSER
