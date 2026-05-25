@@ -1,26 +1,45 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors')
+const cors = require('cors');
 require('dotenv').config();
+
 const routes = require('./routes');
-const FileUpload = require('express-fileupload')
+const FileUpload = require('express-fileupload');
 
 const PORT = process.env.PORT || 5000;
 
-const app = express()
-  app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
+const app = express();
 
-// set body parser
-app.options('*', cors());
+
+// CORS
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'https://sekolahcerdasbangsa.sch.id'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true
+}));
+
+
+// STATIC
 app.use(express.static('public'));
-app.use(FileUpload());
-// Configuring body parser middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
 
-app.use('/', routes)
-app.listen(PORT, () => console.log(`Example app listening on PORT ${PORT}!`))
+
+// FILE UPLOAD
+app.use(FileUpload());
+
+
+// BODY PARSER
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+// ROUTES
+app.use('/', routes);
+
+
+// RUN SERVER
+app.listen(PORT, () => {
+  console.log(`Server running on PORT ${PORT}`);
+});
